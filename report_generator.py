@@ -1,7 +1,7 @@
 """Offline report command line entry point.
 
 This module reads an existing acoustic SQLite database in read-only mode,
-collects filtered report data, and delegates rendering to HTML, Excel, or PDF
+collects filtered report data, and delegates rendering to HTML or Excel
 modules. It never imports source files and never modifies the database.
 
 Examples
@@ -400,7 +400,7 @@ def _resolve_path(value: str, base: Path) -> Path:
 
 def build_argument_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="從本機 SQLite 產生完全離線 HTML、Excel 或 PDF 報表。"
+        description="從本機 SQLite 產生完全離線 HTML或Excel報表。"
     )
     parser.add_argument(
         "--database",
@@ -409,7 +409,7 @@ def build_argument_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--format",
-        choices=("html", "excel", "pdf", "all"),
+        choices=("html", "excel", "all"),
         default="html",
         help="輸出格式，預設 html。",
     )
@@ -429,7 +429,7 @@ def build_argument_parser() -> argparse.ArgumentParser:
         "--detail-limit",
         type=int,
         default=2000,
-        help="HTML/PDF 每類明細最多顯示筆數；Excel 保留完整資料。",
+        help="HTML每類明細最多顯示筆數；Excel 保留完整資料。",
     )
     return parser
 
@@ -460,7 +460,7 @@ def generate_reports(arguments: argparse.Namespace) -> List[Path]:
     finally:
         connection.close()
 
-    formats = ("html", "excel", "pdf") if arguments.format == "all" else (arguments.format,)
+    formats = ("html", "excel") if arguments.format == "all" else (arguments.format,)
     outputs = []  # type: List[Path]
     for output_format in formats:
         if output_format == "html":
@@ -474,12 +474,6 @@ def generate_reports(arguments: argparse.Namespace) -> List[Path]:
 
             outputs.append(
                 generate_excel_report(report_data, output_directory / (stem + ".xlsx"))
-            )
-        elif output_format == "pdf":
-            from pdf_report import generate_pdf_report
-
-            outputs.append(
-                generate_pdf_report(report_data, output_directory / (stem + ".pdf"))
             )
     return outputs
 
