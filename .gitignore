@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+.venv/
+venv/
+AcousticSQLite/
+
+# SQLite generated files
+database/*.db
+database/*.db-shm
+database/*.db-wal
+
+# Generated reports
+reports/
+
+# IDE and OS
+.vscode/
+.DS_Store
+Thumbs.db
