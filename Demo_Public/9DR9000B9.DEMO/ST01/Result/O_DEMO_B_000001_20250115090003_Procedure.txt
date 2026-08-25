@@ -1,0 +1,11 @@
+﻿PUBLIC DEMO DATA - SYNTHETIC VALUES ONLY
+Project Code: 9DR9000B9.DEMO
+ST01
+<Test start> start time : 2025.01.15 09:00:00
+========== DEMO ACOUSTIC TEST ==========
+SN: DEMO_B_000001
+Attempt: 1
+Purpose: Normal PASS
+Test Result: PASS
+Test time: 20.50 sec
+No actual customer, product, equipment, firmware, or production process is represented.

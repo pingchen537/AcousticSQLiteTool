@@ -1,0 +1,7 @@
+﻿PUBLIC DEMO DATA - SYNTHETIC STATUS LOG
+Project: 9DR9000B9.DEMO
+Station: ST01
+SN: DEMO_B_000002
+Attempt: 2
+Result: PASS
+Message: Demonstration record completed without access to production hardware.

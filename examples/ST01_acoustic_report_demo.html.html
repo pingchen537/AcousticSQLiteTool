@@ -1,0 +1,346 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ST01 聲學製程分析報告</title><style>
+    :root {
+        --navy: #12304a;
+        --blue: #2563eb;
+        --green: #15803d;
+        --red: #b91c1c;
+        --amber: #b45309;
+        --ink: #1f2937;
+        --muted: #64748b;
+        --line: #dbe3eb;
+        --paper: #ffffff;
+        --bg: #f3f6f9;
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+            "Microsoft JhengHei",
+            "Noto Sans TC",
+            "Segoe UI",
+            Arial,
+            sans-serif;
+        line-height: 1.5;
+    }
+
+    main {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 28px;
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 24px;
+        padding: 30px 34px;
+        color: #ffffff;
+        background: linear-gradient(135deg, #12304a, #1e4d70);
+        border-radius: 16px;
+        box-shadow: 0 12px 30px #0f274033;
+    }
+
+    h1 {
+        margin: 4px 0 10px;
+        font-size: 30px;
+    }
+
+    h3 {
+        margin: 22px 0 8px;
+        color: var(--navy);
+        font-size: 15px;
+    }
+
+    .eyebrow {
+        color: #b9d8ee;
+        font-size: 12px;
+        letter-spacing: 0.16em;
+    }
+
+    .meta {
+        margin: 0;
+        color: #dceaf4;
+        font-size: 13px;
+    }
+
+    .offline {
+        padding: 8px 14px;
+        white-space: nowrap;
+        background: #ffffff1c;
+        border: 1px solid #ffffff55;
+        border-radius: 999px;
+    }
+
+    section {
+        margin-top: 22px;
+        padding: 24px;
+        background: var(--paper);
+        border-radius: 14px;
+        box-shadow: 0 4px 18px #243b5320;
+        break-inside: avoid;
+    }
+
+    .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 16px;
+        margin-bottom: 18px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .section-head h2 {
+        margin: 0 0 10px;
+        color: var(--navy);
+        font-size: 20px;
+    }
+
+    .section-head p {
+        margin: 0 0 10px;
+        color: var(--muted);
+        font-size: 12px;
+    }
+
+    .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(130px, 1fr));
+        gap: 12px;
+    }
+
+    .kpi {
+        padding: 15px;
+        background: #f8fafc;
+        border-left: 5px solid var(--blue);
+        border-radius: 10px;
+    }
+
+    .kpi.green {
+        border-color: var(--green);
+    }
+
+    .kpi.red {
+        border-color: var(--red);
+    }
+
+    .kpi.amber {
+        border-color: var(--amber);
+    }
+
+    .kpi-label {
+        color: var(--muted);
+        font-size: 12px;
+    }
+
+    .kpi-value {
+        margin-top: 4px;
+        color: var(--navy);
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+    .table-wrap {
+        overflow: auto;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+    }
+
+    th {
+        position: sticky;
+        top: 0;
+        padding: 9px 10px;
+        color: #ffffff;
+        text-align: left;
+        white-space: nowrap;
+        background: var(--navy);
+    }
+
+    td {
+        padding: 8px 10px;
+        white-space: nowrap;
+        border-bottom: 1px solid #e9eef3;
+    }
+
+    tr:nth-child(even) {
+        background: #f8fafc;
+    }
+
+    .row-fail {
+        background: #fff1f2 !important;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        font-size: 11px;
+        font-weight: 700;
+        border-radius: 999px;
+    }
+
+    .badge-pass {
+        color: #166534;
+        background: #dcfce7;
+    }
+
+    .badge-fail {
+        color: #991b1b;
+        background: #fee2e2;
+    }
+
+    .badge-unknown,
+    .badge-no_spec,
+    .badge-no_value {
+        color: #475569;
+        background: #e2e8f0;
+    }
+
+    .cpk-low {
+        color: #b91c1c;
+        font-weight: 700;
+    }
+
+    .cpk-ok {
+        color: #15803d;
+        font-weight: 700;
+    }
+
+    .chart {
+        display: block;
+        width: 100%;
+        max-width: 1050px;
+        margin: 18px 0;
+        padding: 8px;
+        background: #f8fafc;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+    }
+
+    .chart-title {
+        fill: #12304a;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .chart-label {
+        fill: #334155;
+        font-size: 11px;
+    }
+
+    .chart-label-measurement {
+        fill: #64748b;
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+    .bar-value {
+        fill: #ffffff;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .bar-number,
+    .threshold {
+        fill: #475569;
+        font-size: 10px;
+    }
+
+    .warning {
+        margin-top: 20px;
+        padding: 14px 18px;
+        color: #9a3412;
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+        border-radius: 10px;
+    }
+
+    .warning ul {
+        margin: 6px 0 0;
+    }
+
+    .empty,
+    .note {
+        color: var(--muted);
+        font-size: 12px;
+    }
+
+    .note {
+        margin: 8px 2px;
+    }
+
+    footer {
+        padding: 28px;
+        color: var(--muted);
+        font-size: 11px;
+        text-align: center;
+    }
+
+    @media (max-width: 1000px) {
+        main {
+            padding: 14px;
+        }
+
+        .kpi-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        header {
+            flex-direction: column;
+        }
+
+        .section-head {
+            display: block;
+        }
+    }
+
+    @media print {
+        body {
+            background: #ffffff;
+        }
+
+        main {
+            max-width: none;
+            padding: 0;
+        }
+
+        header,
+        section {
+            border: 1px solid #ccd6df;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        section {
+            break-inside: auto;
+        }
+
+        .table-wrap {
+            overflow: visible;
+        }
+
+        th {
+            position: static;
+        }
+
+        .offline {
+            display: none;
+        }
+
+        @page {
+            size: A4 landscape;
+            margin: 10mm;
+        }
+    }
+    </style></head><body><main><header><div><div class="eyebrow">OFFLINE ACOUSTIC QUALITY REPORT</div><h1>ST01 聲學製程分析報告</h1><p class="meta">產生時間：2026-08-25T14:16:25+08:00<br>篩選條件：測站：ST01<br>資料庫：acoustic_production_demo.db</p></div><div class="offline">完全離線</div></header><section><div class="section-head"><h2>製程摘要</h2></div><div class="kpi-grid"><div class="kpi blue"><div class="kpi-label">測試次數</div><div class="kpi-value">10</div></div><div class="kpi blue"><div class="kpi-label">不重複 SN</div><div class="kpi-value">6</div></div><div class="kpi green"><div class="kpi-label">PASS 次數</div><div class="kpi-value">6</div></div><div class="kpi red"><div class="kpi-label">FAIL 次數</div><div class="kpi-value">4</div></div><div class="kpi green"><div class="kpi-label">最終良率</div><div class="kpi-value">83.33%</div></div><div class="kpi amber"><div class="kpi-label">重測率</div><div class="kpi-value">66.67%</div></div></div><svg class="chart" viewBox="0 0 900 151" role="img" aria-label="各機種 PASS 與 FAIL 次數"><text x="180" y="22" class="chart-title">PASS / FAIL 次數</text><text x="4" y="62" class="chart-label">9DR9000B9.DEMO / ST01</text><rect x="180" y="45" width="248.0" height="24" rx="4" fill="#16A34A"/><rect x="428.0" y="45" width="372.0" height="24" rx="4" fill="#DC2626"/><text x="188" y="62" class="bar-value">PASS 2 / FAIL 3</text><text x="4" y="110" class="chart-label">9DR9000K9.DEMO / ST01</text><rect x="180" y="93" width="496.0" height="24" rx="4" fill="#16A34A"/><rect x="676.0" y="93" width="124.0" height="24" rx="4" fill="#DC2626"/><text x="188" y="110" class="bar-value">PASS 4 / FAIL 1</text></svg><div class="table-wrap"><table><thead><tr><th>機種</th><th>測站</th><th>測試次數</th><th>SN 數</th><th>PASS 次數</th><th>FAIL 次數</th><th>測試 PASS 率(%)</th><th>首次良率(%)</th><th>最終良率(%)</th><th>重測 SN</th><th>重測率(%)</th></tr></thead><tbody><tr class=""><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">5</td><td class="">3</td><td class="">2</td><td class="">3</td><td class="">40.00%</td><td class="">33.33%</td><td class="">66.67%</td><td class="">2</td><td class="">66.67%</td></tr><tr class=""><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">5</td><td class="">3</td><td class="">4</td><td class="">1</td><td class="">80.00%</td><td class="">66.67%</td><td class="">100.00%</td><td class="">2</td><td class="">66.67%</td></tr></tbody></table></div></section><section><div class="section-head"><h2>CPK 比較</h2><p>CPK 使用樣本標準差；樣本數不足 2 或標準差為 0 時留白。</p></div><svg class="chart" viewBox="0 0 900 389" role="img" aria-label="CPK 比較"><text x="260" y="22" class="chart-title">CPK：第一次有效量測 vs. 全部測試</text><line x1="422.5972136139519" y1="36" x2="422.5972136139519" y2="379" stroke="#D97706" stroke-width="2" stroke-dasharray="5 4"/><text x="426.5972136139519" y="50" class="threshold">1.33</text><text x="12" y="68" class="chart-label"><tspan x="12" dy="0">9DR9000B9.DEMO / ST01</tspan><tspan x="12" dy="15" class="chart-label-measurement">AVERAGE_LEVEL</tspan></text><rect x="260" y="58" width="33.175005942083104" height="15" rx="3" fill="#2563EB"/><text x="298.1750059420831" y="70" class="bar-number">0.271</text><rect x="260" y="78" width="45.82892776870473" height="15" rx="3" fill="#7C3AED"/><text x="310.8289277687047" y="90" class="bar-number">0.375</text><text x="12" y="122" class="chart-label"><tspan x="12" dy="0">9DR9000B9.DEMO / ST01</tspan><tspan x="12" dy="15" class="chart-label-measurement">SELECTED_FREQUENCY</tspan></text><rect x="260" y="112" width="18.82216442095204" height="15" rx="3" fill="#2563EB"/><text x="283.82216442095205" y="124" class="bar-number">0.154</text><rect x="260" y="132" width="36.44896467096247" height="15" rx="3" fill="#7C3AED"/><text x="301.4489646709625" y="144" class="bar-number">0.298</text><text x="12" y="176" class="chart-label"><tspan x="12" dy="0">9DR9000B9.DEMO / ST01</tspan><tspan x="12" dy="15" class="chart-label-measurement">SELECTED_FREQUENCY_LEVEL</tspan></text><rect x="260" y="166" width="383.23143390027633" height="15" rx="3" fill="#2563EB"/><text x="648.2314339002763" y="178" class="bar-number">3.135</text><rect x="260" y="186" width="490.9090909090909" height="15" rx="3" fill="#7C3AED"/><text x="755.9090909090909" y="198" class="bar-number">4.015</text><text x="12" y="230" class="chart-label"><tspan x="12" dy="0">9DR9000K9.DEMO / ST01</tspan><tspan x="12" dy="15" class="chart-label-measurement">AVERAGE_LEVEL</tspan></text><rect x="260" y="220" width="409.1982679456884" height="15" rx="3" fill="#2563EB"/><text x="674.1982679456884" y="232" class="bar-number">3.347</text><rect x="260" y="240" width="421.0495977468916" height="15" rx="3" fill="#7C3AED"/><text x="686.0495977468915" y="252" class="bar-number">3.444</text><text x="12" y="284" class="chart-label"><tspan x="12" dy="0">9DR9000K9.DEMO / ST01</tspan><tspan x="12" dy="15" class="chart-label-measurement">SELECTED_FREQUENCY</tspan></text><rect x="260" y="274" width="188.2216442095201" height="15" rx="3" fill="#2563EB"/><text x="453.2216442095201" y="286" class="bar-number">1.540</text><rect x="260" y="294" width="255.14275269673723" height="15" rx="3" fill="#7C3AED"/><text x="520.1427526967373" y="306" class="bar-number">2.087</text><text x="12" y="338" class="chart-label"><tspan x="12" dy="0">9DR9000K9.DEMO / ST01</tspan><tspan x="12" dy="15" class="chart-label-measurement">SELECTED_FREQUENCY_LEVEL</tspan></text><rect x="260" y="328" width="32.104832713511435" height="15" rx="3" fill="#2563EB"/><text x="297.1048327135114" y="340" class="bar-number">0.263</text><rect x="260" y="348" width="52.53742515525958" height="15" rx="3" fill="#7C3AED"/><text x="317.5374251552596" y="360" class="bar-number">0.430</text></svg><h3>每個 SN 第一次有效量測</h3><div class="table-wrap"><table><thead><tr><th>機種</th><th>測站</th><th>量測項目</th><th>單位</th><th>加權</th><th>規格版本</th><th>LSL</th><th>USL</th><th>樣本數</th><th>平均值</th><th>樣本標準差</th><th>CPL</th><th>CPU</th><th>CPK</th></tr></thead><tbody><tr class=""><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">AVERAGE_LEVEL</td><td class="">dBA</td><td class="">A</td><td class="">DEMO_SPEC_V1</td><td class="">60.0000</td><td class="">76.0000</td><td class="">3</td><td class="">70.7333</td><td class="">6.4694</td><td class="">0.5530</td><td class="">0.2714</td><td class="cpk-low">0.2714</td></tr><tr class=""><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">SELECTED_FREQUENCY</td><td class="">Hz</td><td class="">-</td><td class="">DEMO_SPEC_V1</td><td class="">2700.0000</td><td class="">3300.0000</td><td class="">3</td><td class="">3166.6667</td><td class="">288.6751</td><td class="">0.5389</td><td class="">0.1540</td><td class="cpk-low">0.1540</td></tr><tr class=""><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">dBSPL</td><td class="">-</td><td class="">DEMO_SPEC_V1</td><td class="">40.0000</td><td class="">70.0000</td><td class="">3</td><td class="">58.1667</td><td class="">1.2583</td><td class="">4.8125</td><td class="">3.1347</td><td class="cpk-ok">3.1347</td></tr><tr class=""><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">AVERAGE_LEVEL</td><td class="">dBA</td><td class="">A</td><td class="">DEMO_SPEC_V1</td><td class="">60.0000</td><td class="">76.0000</td><td class="">3</td><td class="">69.4667</td><td class="">0.6506</td><td class="">4.8499</td><td class="">3.3471</td><td class="cpk-ok">3.3471</td></tr><tr class=""><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">SELECTED_FREQUENCY</td><td class="">Hz</td><td class="">-</td><td class="">DEMO_SPEC_V1</td><td class="">2700.0000</td><td class="">3300.0000</td><td class="">3</td><td class="">2966.6667</td><td class="">57.7350</td><td class="">1.5396</td><td class="">1.9245</td><td class="cpk-ok">1.5396</td></tr><tr class=""><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">dBSPL</td><td class="">-</td><td class="">DEMO_SPEC_V1</td><td class="">40.0000</td><td class="">70.0000</td><td class="">3</td><td class="">64.5667</td><td class="">6.8966</td><td class="">1.1874</td><td class="">0.2626</td><td class="cpk-low">0.2626</td></tr></tbody></table></div><h3>所有測試（包含重測）</h3><div class="table-wrap"><table><thead><tr><th>機種</th><th>測站</th><th>量測項目</th><th>單位</th><th>加權</th><th>規格版本</th><th>LSL</th><th>USL</th><th>樣本數</th><th>平均值</th><th>樣本標準差</th><th>CPL</th><th>CPU</th><th>CPK</th></tr></thead><tbody><tr class=""><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">AVERAGE_LEVEL</td><td class="">dBA</td><td class="">A</td><td class="">DEMO_SPEC_V1</td><td class="">60.0000</td><td class="">76.0000</td><td class="">5</td><td class="">67.8000</td><td class="">6.9358</td><td class="">0.3749</td><td class="">0.3941</td><td class="cpk-low">0.3749</td></tr><tr class=""><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">SELECTED_FREQUENCY</td><td class="">Hz</td><td class="">-</td><td class="">DEMO_SPEC_V1</td><td class="">2700.0000</td><td class="">3300.0000</td><td class="">5</td><td class="">3100.0000</td><td class="">223.6068</td><td class="">0.5963</td><td class="">0.2981</td><td class="cpk-low">0.2981</td></tr><tr class=""><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">dBSPL</td><td class="">-</td><td class="">DEMO_SPEC_V1</td><td class="">40.0000</td><td class="">70.0000</td><td class="">5</td><td class="">58.2400</td><td class="">0.9762</td><td class="">6.2281</td><td class="">4.0155</td><td class="cpk-ok">4.0155</td></tr><tr class=""><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">AVERAGE_LEVEL</td><td class="">dBA</td><td class="">A</td><td class="">DEMO_SPEC_V1</td><td class="">60.0000</td><td class="">76.0000</td><td class="">5</td><td class="">69.3600</td><td class="">0.6427</td><td class="">4.8549</td><td class="">3.4441</td><td class="cpk-ok">3.4441</td></tr><tr class=""><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">SELECTED_FREQUENCY</td><td class="">Hz</td><td class="">-</td><td class="">DEMO_SPEC_V1</td><td class="">2700.0000</td><td class="">3300.0000</td><td class="">5</td><td class="">2980.0000</td><td class="">44.7214</td><td class="">2.0870</td><td class="">2.3851</td><td class="cpk-ok">2.0870</td></tr><tr class=""><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">dBSPL</td><td class="">-</td><td class="">DEMO_SPEC_V1</td><td class="">40.0000</td><td class="">70.0000</td><td class="">5</td><td class="">63.3200</td><td class="">5.1814</td><td class="">1.5002</td><td class="">0.4297</td><td class="cpk-low">0.4297</td></tr></tbody></table></div></section><section><div class="section-head"><h2>FAIL 測試</h2></div><div class="table-wrap"><table><thead><tr><th>機種</th><th>測站</th><th>SN</th><th>測試時間</th><th>整機結果</th><th>測試秒數</th><th>測試次序</th><th>總測試次數</th></tr></thead><tbody><tr class="row-fail"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000002</td><td class="">2025-01-15T09:10:03</td><td class=""><span class="badge badge-fail">FAIL</span></td><td class="">20.5000</td><td class="">1</td><td class="">2</td></tr><tr class="row-fail"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000003</td><td class="">2025-01-15T09:30:03</td><td class=""><span class="badge badge-fail">FAIL</span></td><td class="">20.5000</td><td class="">1</td><td class="">2</td></tr><tr class="row-fail"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000003</td><td class="">2025-01-15T09:40:03</td><td class=""><span class="badge badge-fail">FAIL</span></td><td class="">20.5000</td><td class="">2</td><td class="">2</td></tr><tr class="row-fail"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000003</td><td class="">2025-01-16T09:30:03</td><td class=""><span class="badge badge-fail">FAIL</span></td><td class="">20.5000</td><td class="">1</td><td class="">2</td></tr></tbody></table></div></section><section><div class="section-head"><h2>重測 SN</h2></div><div class="table-wrap"><table><thead><tr><th>機種</th><th>測站</th><th>SN</th><th>總測試次數</th><th>首次測試</th><th>最後測試</th><th>首次結果</th><th>最後結果</th><th>FAIL 後 PASS</th></tr></thead><tbody><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000002</td><td class="">2</td><td class="">2025-01-15T09:10:03</td><td class="">2025-01-15T09:20:03</td><td class=""><span class="badge badge-fail">FAIL</span></td><td class=""><span class="badge badge-pass">PASS</span></td><td class="">是</td></tr><tr class="row-fail"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000003</td><td class="">2</td><td class="">2025-01-15T09:30:03</td><td class="">2025-01-15T09:40:03</td><td class=""><span class="badge badge-fail">FAIL</span></td><td class=""><span class="badge badge-fail">FAIL</span></td><td class="">否</td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000002</td><td class="">2</td><td class="">2025-01-16T09:10:03</td><td class="">2025-01-16T09:20:03</td><td class=""><span class="badge badge-pass">PASS</span></td><td class=""><span class="badge badge-pass">PASS</span></td><td class="">否</td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000003</td><td class="">2</td><td class="">2025-01-16T09:30:03</td><td class="">2025-01-16T09:40:03</td><td class=""><span class="badge badge-fail">FAIL</span></td><td class=""><span class="badge badge-pass">PASS</span></td><td class="">是</td></tr></tbody></table></div></section><section><div class="section-head"><h2>PASS 測試</h2></div><div class="table-wrap"><table><thead><tr><th>機種</th><th>測站</th><th>SN</th><th>測試時間</th><th>整機結果</th><th>測試秒數</th><th>測試次序</th><th>總測試次數</th></tr></thead><tbody><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000001</td><td class="">2025-01-15T09:00:03</td><td class=""><span class="badge badge-pass">PASS</span></td><td class="">20.5000</td><td class="">1</td><td class="">1</td></tr><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000002</td><td class="">2025-01-15T09:20:03</td><td class=""><span class="badge badge-pass">PASS</span></td><td class="">20.5000</td><td class="">2</td><td class="">2</td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000001</td><td class="">2025-01-16T09:00:03</td><td class=""><span class="badge badge-pass">PASS</span></td><td class="">20.5000</td><td class="">1</td><td class="">1</td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000002</td><td class="">2025-01-16T09:10:03</td><td class=""><span class="badge badge-pass">PASS</span></td><td class="">20.5000</td><td class="">1</td><td class="">2</td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000002</td><td class="">2025-01-16T09:20:03</td><td class=""><span class="badge badge-pass">PASS</span></td><td class="">20.5000</td><td class="">2</td><td class="">2</td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000003</td><td class="">2025-01-16T09:40:03</td><td class=""><span class="badge badge-pass">PASS</span></td><td class="">20.5000</td><td class="">2</td><td class="">2</td></tr></tbody></table></div></section><section><div class="section-head"><h2>量測值與規格判定</h2></div><div class="table-wrap"><table><thead><tr><th>機種</th><th>測站</th><th>SN</th><th>測試時間</th><th>測試次序</th><th>量測項目</th><th>量測值</th><th>單位</th><th>加權</th><th>LSL</th><th>USL</th><th>規格判定</th></tr></thead><tbody><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000001</td><td class="">2025-01-15T09:00:03</td><td class="">1</td><td class="">AVERAGE_LEVEL</td><td class="">67.2000</td><td class="">dBA</td><td class="">A</td><td class="">60.0000</td><td class="">76.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000001</td><td class="">2025-01-15T09:00:03</td><td class="">1</td><td class="">SELECTED_FREQUENCY</td><td class="">3000.0000</td><td class="">Hz</td><td class="">-</td><td class="">2700.0000</td><td class="">3300.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000001</td><td class="">2025-01-15T09:00:03</td><td class="">1</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">58.0000</td><td class="">dBSPL</td><td class="">-</td><td class="">40.0000</td><td class="">70.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-fail"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000002</td><td class="">2025-01-15T09:10:03</td><td class="">1</td><td class="">AVERAGE_LEVEL</td><td class="">78.2000</td><td class="">dBA</td><td class="">A</td><td class="">60.0000</td><td class="">76.0000</td><td class=""><span class="badge badge-fail">FAIL</span></td></tr><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000002</td><td class="">2025-01-15T09:10:03</td><td class="">1</td><td class="">SELECTED_FREQUENCY</td><td class="">3000.0000</td><td class="">Hz</td><td class="">-</td><td class="">2700.0000</td><td class="">3300.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000002</td><td class="">2025-01-15T09:10:03</td><td class="">1</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">59.5000</td><td class="">dBSPL</td><td class="">-</td><td class="">40.0000</td><td class="">70.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000002</td><td class="">2025-01-15T09:20:03</td><td class="">2</td><td class="">AVERAGE_LEVEL</td><td class="">68.1000</td><td class="">dBA</td><td class="">A</td><td class="">60.0000</td><td class="">76.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000002</td><td class="">2025-01-15T09:20:03</td><td class="">2</td><td class="">SELECTED_FREQUENCY</td><td class="">3000.0000</td><td class="">Hz</td><td class="">-</td><td class="">2700.0000</td><td class="">3300.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000002</td><td class="">2025-01-15T09:20:03</td><td class="">2</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">58.9000</td><td class="">dBSPL</td><td class="">-</td><td class="">40.0000</td><td class="">70.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000003</td><td class="">2025-01-15T09:30:03</td><td class="">1</td><td class="">AVERAGE_LEVEL</td><td class="">66.8000</td><td class="">dBA</td><td class="">A</td><td class="">60.0000</td><td class="">76.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-fail"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000003</td><td class="">2025-01-15T09:30:03</td><td class="">1</td><td class="">SELECTED_FREQUENCY</td><td class="">3500.0000</td><td class="">Hz</td><td class="">-</td><td class="">2700.0000</td><td class="">3300.0000</td><td class=""><span class="badge badge-fail">FAIL</span></td></tr><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000003</td><td class="">2025-01-15T09:30:03</td><td class="">1</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">57.0000</td><td class="">dBSPL</td><td class="">-</td><td class="">40.0000</td><td class="">70.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-fail"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000003</td><td class="">2025-01-15T09:40:03</td><td class="">2</td><td class="">AVERAGE_LEVEL</td><td class="">58.7000</td><td class="">dBA</td><td class="">A</td><td class="">60.0000</td><td class="">76.0000</td><td class=""><span class="badge badge-fail">FAIL</span></td></tr><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000003</td><td class="">2025-01-15T09:40:03</td><td class="">2</td><td class="">SELECTED_FREQUENCY</td><td class="">3000.0000</td><td class="">Hz</td><td class="">-</td><td class="">2700.0000</td><td class="">3300.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">DEMO_B_000003</td><td class="">2025-01-15T09:40:03</td><td class="">2</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">57.8000</td><td class="">dBSPL</td><td class="">-</td><td class="">40.0000</td><td class="">70.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000001</td><td class="">2025-01-16T09:00:03</td><td class="">1</td><td class="">AVERAGE_LEVEL</td><td class="">69.5000</td><td class="">dBA</td><td class="">A</td><td class="">60.0000</td><td class="">76.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000001</td><td class="">2025-01-16T09:00:03</td><td class="">1</td><td class="">SELECTED_FREQUENCY</td><td class="">2900.0000</td><td class="">Hz</td><td class="">-</td><td class="">2700.0000</td><td class="">3300.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000001</td><td class="">2025-01-16T09:00:03</td><td class="">1</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">60.0000</td><td class="">dBSPL</td><td class="">-</td><td class="">40.0000</td><td class="">70.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000002</td><td class="">2025-01-16T09:10:03</td><td class="">1</td><td class="">AVERAGE_LEVEL</td><td class="">70.1000</td><td class="">dBA</td><td class="">A</td><td class="">60.0000</td><td class="">76.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000002</td><td class="">2025-01-16T09:10:03</td><td class="">1</td><td class="">SELECTED_FREQUENCY</td><td class="">3000.0000</td><td class="">Hz</td><td class="">-</td><td class="">2700.0000</td><td class="">3300.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000002</td><td class="">2025-01-16T09:10:03</td><td class="">1</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">61.2000</td><td class="">dBSPL</td><td class="">-</td><td class="">40.0000</td><td class="">70.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000002</td><td class="">2025-01-16T09:20:03</td><td class="">2</td><td class="">AVERAGE_LEVEL</td><td class="">69.8000</td><td class="">dBA</td><td class="">A</td><td class="">60.0000</td><td class="">76.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000002</td><td class="">2025-01-16T09:20:03</td><td class="">2</td><td class="">SELECTED_FREQUENCY</td><td class="">3000.0000</td><td class="">Hz</td><td class="">-</td><td class="">2700.0000</td><td class="">3300.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000002</td><td class="">2025-01-16T09:20:03</td><td class="">2</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">60.9000</td><td class="">dBSPL</td><td class="">-</td><td class="">40.0000</td><td class="">70.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000003</td><td class="">2025-01-16T09:30:03</td><td class="">1</td><td class="">AVERAGE_LEVEL</td><td class="">68.8000</td><td class="">dBA</td><td class="">A</td><td class="">60.0000</td><td class="">76.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000003</td><td class="">2025-01-16T09:30:03</td><td class="">1</td><td class="">SELECTED_FREQUENCY</td><td class="">3000.0000</td><td class="">Hz</td><td class="">-</td><td class="">2700.0000</td><td class="">3300.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-fail"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000003</td><td class="">2025-01-16T09:30:03</td><td class="">1</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">72.5000</td><td class="">dBSPL</td><td class="">-</td><td class="">40.0000</td><td class="">70.0000</td><td class=""><span class="badge badge-fail">FAIL</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000003</td><td class="">2025-01-16T09:40:03</td><td class="">2</td><td class="">AVERAGE_LEVEL</td><td class="">68.6000</td><td class="">dBA</td><td class="">A</td><td class="">60.0000</td><td class="">76.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000003</td><td class="">2025-01-16T09:40:03</td><td class="">2</td><td class="">SELECTED_FREQUENCY</td><td class="">3000.0000</td><td class="">Hz</td><td class="">-</td><td class="">2700.0000</td><td class="">3300.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr><tr class="row-pass"><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">DEMO_K_000003</td><td class="">2025-01-16T09:40:03</td><td class="">2</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">62.0000</td><td class="">dBSPL</td><td class="">-</td><td class="">40.0000</td><td class="">70.0000</td><td class=""><span class="badge badge-pass">PASS</span></td></tr></tbody></table></div></section><section><div class="section-head"><h2>規格版本</h2></div><div class="table-wrap"><table><thead><tr><th>機種</th><th>測站</th><th>量測項目</th><th>單位</th><th>加權</th><th>Target</th><th>LSL</th><th>USL</th><th>規格版本</th><th>規格狀態</th><th>生效日期</th><th>失效日期</th><th>規格備註</th></tr></thead><tbody><tr class=""><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">AVERAGE_LEVEL</td><td class="">dBA</td><td class="">A</td><td class="">-</td><td class="">60.0000</td><td class="">76.0000</td><td class="">DEMO_SPEC_V1</td><td class="">DEMO</td><td class="">-</td><td class="">-</td><td class="">Synthetic public demonstration specification</td></tr><tr class=""><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">SELECTED_FREQUENCY</td><td class="">Hz</td><td class="">-</td><td class="">3000.0000</td><td class="">2700.0000</td><td class="">3300.0000</td><td class="">DEMO_SPEC_V1</td><td class="">DEMO</td><td class="">-</td><td class="">-</td><td class="">Synthetic public demonstration specification</td></tr><tr class=""><td class="">9DR9000B9.DEMO</td><td class="">ST01</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">dBSPL</td><td class="">-</td><td class="">-</td><td class="">40.0000</td><td class="">70.0000</td><td class="">DEMO_SPEC_V1</td><td class="">DEMO</td><td class="">-</td><td class="">-</td><td class="">Synthetic public demonstration specification</td></tr><tr class=""><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">AVERAGE_LEVEL</td><td class="">dBA</td><td class="">A</td><td class="">-</td><td class="">60.0000</td><td class="">76.0000</td><td class="">DEMO_SPEC_V1</td><td class="">DEMO</td><td class="">-</td><td class="">-</td><td class="">Synthetic public demonstration specification</td></tr><tr class=""><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">SELECTED_FREQUENCY</td><td class="">Hz</td><td class="">-</td><td class="">3000.0000</td><td class="">2700.0000</td><td class="">3300.0000</td><td class="">DEMO_SPEC_V1</td><td class="">DEMO</td><td class="">-</td><td class="">-</td><td class="">Synthetic public demonstration specification</td></tr><tr class=""><td class="">9DR9000K9.DEMO</td><td class="">ST01</td><td class="">SELECTED_FREQUENCY_LEVEL</td><td class="">dBSPL</td><td class="">-</td><td class="">-</td><td class="">40.0000</td><td class="">70.0000</td><td class="">DEMO_SPEC_V1</td><td class="">DEMO</td><td class="">-</td><td class="">-</td><td class="">Synthetic public demonstration specification</td></tr></tbody></table></div></section><footer>此報告由本機 SQLite 產生，不包含任何網路資源。報告為產生當下的資料快照。</footer></main></body></html>
+    

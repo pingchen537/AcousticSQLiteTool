@@ -1,0 +1,4 @@
+project_code,station,measurement_name,value_unit,weighting,target,lsl,usl,spec_revision,effective_from,effective_to,spec_status,source_note
+9DR9000B9.DEMO,ST01,AVERAGE_LEVEL,dBA,A,,60,76,DEMO_SPEC_V1,,,DEMO,Synthetic public demonstration specification
+9DR9000B9.DEMO,ST01,SELECTED_FREQUENCY,Hz,,3000,2700,3300,DEMO_SPEC_V1,,,DEMO,Synthetic public demonstration specification
+9DR9000B9.DEMO,ST01,SELECTED_FREQUENCY_LEVEL,dBSPL,,,40,70,DEMO_SPEC_V1,,,DEMO,Synthetic public demonstration specification

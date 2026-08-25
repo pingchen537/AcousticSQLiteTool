@@ -1,0 +1,174 @@
+AcousticSQLiteTool Public Demo Commands
+=======================================
+
+The following commands are intended for the anonymized ST01 public demo.
+Run them from the AcousticSQLiteTool project directory in Windows Command Prompt.
+
+
+0. Install the required Python packages.
+
+python -m pip install -r requirements.txt
+
+
+--------------------------------------------------
+
+1A. Build or incrementally update the public demo database.
+
+python acoustic_sqlite_importer.py ^
+  --root "Demo_Public" ^
+  --station ST01 ^
+  --database "database\acoustic_demo_public.db"
+
+(Import the synthetic RawData, Result, and Spec files under Demo_Public.
+Run this command again after demo source files are added or updated.)
+
+
+1B. Import multiple demo project roots into one database.
+
+python acoustic_sqlite_importer.py ^
+  --root "Demo_Public\9DR9000B9.DEMO" ^
+  --root "Demo_Public\9DR9000K9.DEMO" ^
+  --station ST01 ^
+  --database "database\acoustic_demo_public.db"
+
+(Import and integrate multiple anonymized ST01 demo project folders into one
+SQLite database. Commands 1A and 1B are alternatives.)
+
+
+--------------------------------------------------
+
+2. Search for all test records associated with a demo SN.
+
+python acoustic_sqlite_importer.py ^
+  --database "database\acoustic_demo_public.db" ^
+  --query-only ^
+  --sn "DEMO_B_000002"
+
+(This command only queries the existing database and does not import files.
+DEMO_B_000002 should contain a FAIL attempt followed by a PASS retest.)
+
+
+--------------------------------------------------
+
+3. Export frequency-response RawData for one demo date to Excel.
+
+python rawdata_excel_exporter.py ^
+  --database "database\acoustic_demo_public.db" ^
+  --station ST01 ^
+  --date 2025-01-15 ^
+  --measurement FREQRESP_IN_1
+
+(Export the ST01 frequency-response RawData for 2025-01-15 to Excel.
+The output is stored in reports\rawdata_excel by default.)
+
+
+--------------------------------------------------
+
+4. Generate an Excel management analysis report.
+
+python report_generator.py ^
+  --database "database\acoustic_demo_public.db" ^
+  --station ST01 ^
+  --format excel ^
+  --output-dir "reports"
+
+(Generate an Excel management analysis report using all demo dates.
+To filter by date range, add --date-from and --date-to.)
+
+
+--------------------------------------------------
+
+5. Generate acoustic charts using the default settings.
+
+python visualize_acoustic_database.py ^
+  --database "database\acoustic_demo_public.db" ^
+  --station ST01 ^
+  --dataset all ^
+  --output-dir "reports\visualizations_all"
+
+(The statistics, CSV summaries, histograms, and CPK calculations use all valid
+demo test attempts, including retests. Sample-based charts use the default
+maximum number of displayed samples.)
+
+
+6. Generate acoustic charts using customized display settings.
+
+python visualize_acoustic_database.py ^
+  --database "database\acoustic_demo_public.db" ^
+  --station ST01 ^
+  --dataset all ^
+  --output-dir "reports\visualizations_custom" ^
+  --title-font-size 24 ^
+  --axis-label-font-size 18 ^
+  --tick-font-size 13 ^
+  --legend-font-size 13 ^
+  --legend-location "lower right" ^
+  --max-x-labels 50 ^
+  --max-plot-samples 200 ^
+  --max-legend-items 20
+
+(The charts display up to 200 samples and up to 20 frequency-response legend
+entries. Complete demo data are still used for CSV summaries, statistics,
+histograms, and CPK calculations.)
+
+(Commands 5 and 6 are alternatives. Use Command 5 for the default settings or
+Command 6 when customized chart settings are required.)
+
+
+--------------------------------------------------
+
+7A. Generate an offline HTML report using all demo dates.
+
+python report_generator.py ^
+  --database "database\acoustic_demo_public.db" ^
+  --station ST01 ^
+  --format html ^
+  --output-dir "reports" ^
+  --output-name "ST01_demo_all_dates"
+
+(Generate a completely offline HTML management analysis report.)
+
+
+7B. Generate an offline HTML report for a specified demo date range.
+
+python report_generator.py ^
+  --database "database\acoustic_demo_public.db" ^
+  --station ST01 ^
+  --format html ^
+  --date-from 2025-01-15 ^
+  --date-to 2025-01-16 ^
+  --output-dir "reports" ^
+  --output-name "ST01_demo_20250115_20250116"
+
+(The start and end dates are inclusive.)
+
+
+--------------------------------------------------
+
+Dataset modes
+-------------
+
+- all: Use all valid test attempts, including retests.
+- first: Use only the first valid test attempt for each SN.
+
+The selected dataset mode applies to statistics, CSV summaries, charts, and
+CPK calculations. Chart sample limits only affect how many SNs are displayed
+in sample-based charts.
+
+Example: generate charts using the first valid test attempt for each SN.
+
+python visualize_acoustic_database.py ^
+  --database "database\acoustic_demo_public.db" ^
+  --station ST01 ^
+  --dataset first ^
+  --output-dir "reports\visualizations_first"
+
+
+--------------------------------------------------
+
+Public demo notice
+------------------
+
+All project codes, serial numbers, dates, specifications, measurements, and
+test results used by these commands are synthetic demonstration data. They do
+not represent any actual customer, product, production station, or device.
